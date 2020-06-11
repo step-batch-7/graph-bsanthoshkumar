@@ -60,10 +60,8 @@ describe('bfs', function () {
       ['a', 'b'],
       ['b', 'c'],
       ['b', 'd'],
-      ['c', 'a'],
-      ['d', 'e'],
     ];
-    assert.isTrue(bfs(pairs.slice(), 'c', 'e'));
+    assert.isFalse(bfs(pairs.slice(), 'a', 'a'));
   });
 
   it('should give true for non-adjacent and connected nodes in recursive graph', function () {
@@ -73,6 +71,6 @@ describe('bfs', function () {
       ['b', 'b'],
       ['c', 'a'],
     ];
-    assert.isTrue(bfs(pairs.slice(), 'b', 'a'));
+    assert.isTrue(bfs(pairs.slice(), 'a', 'a'));
   });
 });

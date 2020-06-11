@@ -5,12 +5,14 @@
 // Should return true.
 
 const bfs = function (pairs, source, target) {
-  if (source == target) {
-    return pairs.some((pair) => pair[0] == source && pair[1] == target);
-  }
-
-  let queue = [source];
+  let queue = [];
   let visitedNodes = [];
+
+  pairs.forEach((pair) => {
+    if (pair[0] == source && !visitedNodes.includes(pair[1])) {
+      queue.push(pair[1]);
+    }
+  });
 
   while (queue.length != 0) {
     const node = queue.shift();
