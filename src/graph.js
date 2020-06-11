@@ -6,10 +6,10 @@
 
 const bfs = function (pairs, source, target) {
   const sourceChilds = pairs.filter((pair) => pair[0] == source);
-  return (
-    pairs.some((pair) => pair[0] == source && pair[1] == target) ||
-    sourceChilds.some((pair) => bfs(pairs, pair[1], target))
-  );
+  let flag = false;
+  flag = flag || pairs.some((pair) => pair[0] == source && pair[1] == target);
+  flag = flag || sourceChilds.some((pair) => bfs(pairs, pair[1], target));
+  return flag;
 };
 
 module.exports = { bfs };
