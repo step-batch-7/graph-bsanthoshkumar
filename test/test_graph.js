@@ -12,7 +12,7 @@ describe('bfs', function () {
     assert.isTrue(bfs(pairs.slice(), 'a', 'b'));
   });
 
-  it('should give false for adjacent non connected nodes', function () {
+  it('should give false for adjacent non-connected nodes', function () {
     const pairs = [
       ['a', 'b'],
       ['b', 'c'],
@@ -20,5 +20,15 @@ describe('bfs', function () {
       ['b', 'd'],
     ];
     assert.isFalse(bfs(pairs.slice(), 'b', 'a'));
+  });
+
+  it('should give true for non-adjacent connected nodes', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['a', 'c'],
+      ['b', 'd'],
+    ];
+    assert.isTrue(bfs(pairs.slice(), 'a', 'd'));
   });
 });
