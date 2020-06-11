@@ -5,11 +5,25 @@
 // Should return true.
 
 const bfs = function (pairs, source, target) {
-  const sourceChilds = pairs.filter((pair) => pair[0] == source);
-  let flag = false;
-  flag = flag || pairs.some((pair) => pair[0] == source && pair[1] == target);
-  flag = flag || sourceChilds.some((pair) => bfs(pairs, pair[1], target));
-  return flag;
+  if (source == target) {
+    return pairs.some((pair) => pair[0] == source && pair[1] == target);
+  }
+
+  let queue = [source];
+  let visitedNodes = [];
+
+  while (queue.length != 0) {
+    const node = queue.shift();
+    visitedNodes.push(node);
+    if (node == target) return true;
+
+    pairs.forEach((pair) => {
+      if (pair[0] == node && !visitedNodes.includes(pair[1])) {
+        queue.push(pair[1]);
+      }
+    });
+  }
+  return false;
 };
 
 module.exports = { bfs };

@@ -54,4 +54,15 @@ describe('bfs', function () {
     ];
     assert.isTrue(bfs(pairs.slice(), 'a', 'a'));
   });
+
+  it('should give false for non-adjacent and non-connected nodes in recursive graph', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['b', 'd'],
+      ['c', 'a'],
+      ['d', 'e'],
+    ];
+    assert.isTrue(bfs(pairs.slice(), 'c', 'e'));
+  });
 });
