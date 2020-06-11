@@ -31,4 +31,27 @@ describe('bfs', function () {
     ];
     assert.isTrue(bfs(pairs.slice(), 'a', 'd'));
   });
+
+  it('should give false for non-adjacent non-connected nodes', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['b', 'd'],
+      ['d', 'e'],
+    ];
+    assert.isFalse(bfs(pairs.slice(), 'c', 'e'));
+  });
+
+  it('should give false for same node not connected to itself', function () {
+    const pairs = [['a', 'b']];
+    assert.isFalse(bfs(pairs.slice(), 'a', 'a'));
+  });
+
+  it('should give true for same node connected to itself', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['a', 'a'],
+    ];
+    assert.isTrue(bfs(pairs.slice(), 'a', 'a'));
+  });
 });
