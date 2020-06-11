@@ -70,10 +70,9 @@ describe('bfs', function () {
     const pairs = [
       ['a', 'b'],
       ['b', 'c'],
-      ['b', 'd'],
+      ['b', 'b'],
       ['c', 'a'],
-      ['d', 'e'],
     ];
-    assert.isTrue(bfs(pairs.slice(), 'c', 'b'));
+    assert.isTrue(bfs(pairs.slice(), 'b', 'a'));
   });
 });
