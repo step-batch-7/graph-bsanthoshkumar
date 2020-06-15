@@ -83,7 +83,7 @@ describe('dfs', function () {
       ['a', 'c'],
       ['b', 'd'],
     ];
-    assert.deepStrictEqual(dfs(pairs, 'a', 'b'), ['a', 'b']);
+    assert.deepStrictEqual(dfs(pairs.slice(), 'a', 'b'), ['a', 'b']);
   });
 
   it('should give false for adjacent non-connected nodes', function () {
@@ -93,6 +93,31 @@ describe('dfs', function () {
       ['a', 'c'],
       ['b', 'd'],
     ];
-    assert.isFalse(dfs(pairs, 'b', 'a'));
+    assert.isFalse(dfs(pairs.slice(), 'b', 'a'));
+  });
+
+  it('should give path for non-adjacent connected nodes', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['a', 'c'],
+      ['b', 'd'],
+    ];
+    assert.deepStrictEqual(dfs(pairs.slice(), 'a', 'd'), ['a', 'b', 'd']);
+  });
+
+  it('should give false for non-adjacent non-connected nodes', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['b', 'd'],
+      ['d', 'e'],
+    ];
+    assert.isFalse(dfs(pairs.slice(), 'c', 'e'));
+  });
+
+  it('should give false for same node not connected to itself', function () {
+    const pairs = [['a', 'b']];
+    assert.isFalse(dfs(pairs.slice(), 'a', 'a'));
   });
 });
