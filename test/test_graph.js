@@ -1,5 +1,5 @@
 const assert = require('chai').assert;
-const { bfs } = require('../src/graph');
+const { bfs, dfs } = require('../src/graph');
 
 describe('bfs', function () {
   it('should give true for adjacent connected nodes', function () {
@@ -72,5 +72,27 @@ describe('bfs', function () {
       ['c', 'a'],
     ];
     assert.isTrue(bfs(pairs.slice(), 'a', 'a'));
+  });
+});
+
+describe('dfs', function () {
+  it('should give path for adjacent connected nodes', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['a', 'c'],
+      ['b', 'd'],
+    ];
+    assert.deepStrictEqual(dfs(pairs, 'a', 'b'), ['a', 'b']);
+  });
+
+  it('should give false for adjacent non-connected nodes', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['a', 'c'],
+      ['b', 'd'],
+    ];
+    assert.isFalse(dfs(pairs, 'b', 'a'));
   });
 });
