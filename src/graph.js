@@ -6,7 +6,8 @@
 
 const enqueue_chidren = (pairs, parent, visitedNodes, queue) => {
   pairs.forEach((pair) => {
-    if (pair[0] == parent && !visitedNodes.includes(pair[1])) {
+    const isVisited = visitedNodes.includes(pair[1]) || queue.includes(pair[1]);
+    if (pair[0] == parent && !isVisited) {
       queue.push(pair[1]);
     }
   });
@@ -29,4 +30,9 @@ const bfs = function (pairs, source, target) {
   return false;
 };
 
-module.exports = { bfs };
+const dfs = function (pairs, source, target) {
+  let stack = [];
+  let visitedNodes = [];
+};
+
+module.exports = { bfs, dfs };
