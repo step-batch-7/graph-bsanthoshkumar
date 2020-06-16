@@ -36,7 +36,6 @@ const getUnvisitedNodes = (nodes, visitedNodes) => {
 const dfs = (adjacencyList, source, target) => {
   let stack = [];
   let visitedNodes = [];
-  console.log(adjacencyList);
 
   let unvisitedNodes = getUnvisitedNodes(adjacencyList[source], visitedNodes);
   if (unvisitedNodes.length != 0) {
