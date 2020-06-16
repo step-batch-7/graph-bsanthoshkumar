@@ -36,13 +36,17 @@ const getUnvisitedNodes = (nodes, visitedNodes) => {
 const dfs = (adjacencyList, source, target) => {
   let stack = [];
   let visitedNodes = [];
+  console.log(adjacencyList);
 
-  const unvisitedNodes = getUnvisitedNodes(adjacencyList[source], visitedNodes);
-  if (unvisitedNodes.length != 0) stack.push(unvisitedNodes[0]);
+  let unvisitedNodes = getUnvisitedNodes(adjacencyList[source], visitedNodes);
+  if (unvisitedNodes.length != 0) {
+    stack.push(unvisitedNodes[0]);
+    visitedNodes.push(unvisitedNodes[0]);
+  }
   if (stack[stack.length - 1] == target) return true;
 
   while (stack.length != 0) {
-    const unvisitedNodes = getUnvisitedNodes(adjacencyList[stack[stack.length - 1]], visitedNodes);
+    unvisitedNodes = getUnvisitedNodes(adjacencyList[stack[stack.length - 1]], visitedNodes);
     if (unvisitedNodes.length != 0) {
       stack.push(unvisitedNodes[0]);
       visitedNodes.push(unvisitedNodes[0]);
@@ -55,5 +59,6 @@ const dfs = (adjacencyList, source, target) => {
 
   return false;
 };
+
 
 module.exports = { bfs, dfs, getAdjacencyList };

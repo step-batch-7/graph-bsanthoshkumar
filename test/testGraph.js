@@ -133,4 +133,31 @@ describe('dfs', function () {
     const pairs = [['a', 'b']];
     assert.isFalse(dfs(getAdjacencyList(pairs.slice()), 'a', 'a'));
   });
+
+  it('should give true for same node connected to itself', function () {
+    const pairs = [
+      ['a', 'a'],
+      ['a', 'b'],
+    ];
+    assert.isTrue(dfs(getAdjacencyList(pairs.slice()), 'a', 'a'));
+  });
+
+  it('should give false for non-adjacent and non-connected nodes in recursive graph', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['b', 'd'],
+    ];
+    assert.isFalse(dfs(getAdjacencyList(pairs.slice()), 'a', 'a'));
+  });
+
+  it('should give true for non-adjacent and connected nodes in recursive graph', function () {
+    const pairs = [
+      ['a', 'b'],
+      ['b', 'c'],
+      ['b', 'b'],
+      ['c', 'a'],
+    ];
+    assert.isTrue(dfs(getAdjacencyList(pairs.slice()), 'a', 'a'));
+  });
 });
