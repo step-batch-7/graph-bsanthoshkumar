@@ -76,14 +76,14 @@ describe('bfs', function () {
 });
 
 describe('dfs', function () {
-  it('should give path for adjacent connected nodes', function () {
+  it('should give true for adjacent connected nodes', function () {
     const pairs = [
       ['a', 'b'],
       ['b', 'c'],
       ['a', 'c'],
       ['b', 'd'],
     ];
-    assert.deepStrictEqual(dfs(pairs.slice(), 'a', 'b'), ['a', 'b']);
+    assert.isTrue(dfs(pairs.slice(), 'a', 'b'));
   });
 
   it('should give false for adjacent non-connected nodes', function () {
@@ -96,14 +96,14 @@ describe('dfs', function () {
     assert.isFalse(dfs(pairs.slice(), 'b', 'a'));
   });
 
-  it('should give path for non-adjacent connected nodes', function () {
+  it('should give true for non-adjacent connected nodes', function () {
     const pairs = [
       ['a', 'b'],
       ['b', 'c'],
       ['a', 'c'],
       ['b', 'd'],
     ];
-    assert.deepStrictEqual(dfs(pairs.slice(), 'a', 'd'), ['a', 'b', 'd']);
+    assert.isTrue(dfs(pairs.slice(), 'a', 'd'));
   });
 
   it('should give false for non-adjacent non-connected nodes', function () {
