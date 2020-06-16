@@ -59,5 +59,27 @@ const dfs = (adjacencyList, source, target) => {
   return false;
 };
 
+const findPath = (adjacencyList, source, target) => {
+  let stack = [];
+  let visitedNodes = [];
 
-module.exports = { bfs, dfs, getAdjacencyList };
+  let unvisitedNodes = getUnvisitedNodes(adjacencyList[source], visitedNodes);
+  if (unvisitedNodes.length != 0) stack.push(unvisitedNodes[0]);
+  if (stack[stack.length - 1] == target) return [source, ...stack];
+
+  while (stack.length != 0) {
+    unvisitedNodes = getUnvisitedNodes(adjacencyList[stack[stack.length - 1]], visitedNodes);
+    if (unvisitedNodes.length != 0) {
+      stack.push(unvisitedNodes[0]);
+      visitedNodes.push(unvisitedNodes[0]);
+    } else {
+      stack.pop();
+    }
+
+    if (stack[stack.length - 1] == target) return [source, ...stack];
+  }
+
+  return [];
+};
+
+module.exports = { bfs, dfs, findPath, getAdjacencyList };
