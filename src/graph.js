@@ -3,52 +3,57 @@
 // Source => from
 // To => to
 // Should return true.
-
-const getAdjacencyList = (pairs, parent, visitedNodes) => {
-  let adjacencyList = [];
+const getAdjacencyList = (pairs) => {
+  let adjacencyList = {};
   pairs.forEach((pair) => {
-    if (pair[0] == parent && !visitedNodes.includes(pair[1])) {
-      adjacencyList.push(pair[1]);
-    }
+    if (!adjacencyList[pair[0]]) adjacencyList[pair[0]] = [];
+    if (!adjacencyList[pair[1]]) adjacencyList[pair[1]] = [];
+    adjacencyList[pair[0]].push(pair[1]);
   });
 
-  return adjacencyList.slice();
+  return adjacencyList;
 };
 
-const bfs = (pairs, source, target) => {
+const bfs = (adjacencyList, source, target) => {
   let queue = [];
   let visitedNodes = [];
-  queue.push(...getAdjacencyList(pairs, source, visitedNodes));
+  queue.push(...adjacencyList[source]);
 
   while (queue.length != 0) {
     const node = queue.shift();
     visitedNodes.push(node);
 
     if (node == target) return true;
-    queue.push(...getAdjacencyList(pairs, node, visitedNodes));
+    queue.push(...adjacencyList[node]);
   }
   return false;
 };
 
-const dfs = (pairs, source, target) => {
-  let stack = [source];
-  let visitedNodes = [source];
+const getUnvisitedNodes = (nodes, visitedNodes) => {
+  return nodes.filter((node) => !visitedNodes.includes(node));
+};
+
+const dfs = (adjacencyList, source, target) => {
+  let stack = [];
+  let visitedNodes = [];
+
+  const unvisitedNodes = getUnvisitedNodes(adjacencyList[source], visitedNodes);
+  if (unvisitedNodes.length != 0) stack.push(unvisitedNodes[0]);
+  if (stack[stack.length - 1] == target) return true;
 
   while (stack.length != 0) {
-    const adjacencyList = getAdjacencyList(pairs, stack[stack.length - 1], visitedNodes);
-    if (adjacencyList.length != 0) {
-      stack.push(adjacencyList[0]);
-      visitedNodes.push(adjacencyList[0]);
+    const unvisitedNodes = getUnvisitedNodes(adjacencyList[stack[stack.length - 1]], visitedNodes);
+    if (unvisitedNodes.length != 0) {
+      stack.push(unvisitedNodes[0]);
+      visitedNodes.push(unvisitedNodes[0]);
     } else {
       stack.pop();
     }
 
-    if (adjacencyList[0] == target) {
-      return true;
-    }
+    if (stack[stack.length - 1] == target) return true;
   }
 
   return false;
 };
 
-module.exports = { bfs, dfs };
+module.exports = { bfs, dfs, getAdjacencyList };
