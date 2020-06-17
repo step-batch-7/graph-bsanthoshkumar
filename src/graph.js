@@ -14,7 +14,8 @@ const getAdjacencyList = (pairs) => {
   return adjacencyList;
 };
 
-const bfs = (adjacencyList, source, target) => {
+const bfs = (pairs, source, target) => {
+  const adjacencyList = getAdjacencyList(pairs);
   let queue = [];
   let visitedNodes = [];
   queue.push(...adjacencyList[source]);
